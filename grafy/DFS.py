@@ -32,7 +32,7 @@ def DFS_list(G):
                 DFS_visit(G, u)
         time += 1
 
-    for v in G:
+    for v in range(n):
         if not visited[v]: DFS_visit(G, v)
 
     return visited, time, parent
@@ -48,11 +48,10 @@ def DFS_matrix(G):
         visited[v] = True
         time += 1
         for u in range(n):
-            for v in G[u]:
-                if G[v][u] == 1 and not visited[u]: DFS_visit(G, u)
+            if G[v][u] == 1 and not visited[u]: DFS_visit(G, u)
         time += 1
 
     for v in range(n):
         if not visited[v]: DFS_visit(G, v)
 
-    return visited, time, parent
+    return time, visited, parent
