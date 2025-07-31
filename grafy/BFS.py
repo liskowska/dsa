@@ -29,7 +29,7 @@ def BFS_list(s, G):
     visited[s] = True
     Q.append(s)
 
-    while not Q:
+    while Q:
         u = Q.popleft()
         for v in G[u]:
             if not visited[v]:
@@ -40,7 +40,6 @@ def BFS_list(s, G):
 
     return visited, parent, d
 
-from collections import deque
 
 def BFS_matrix(s, G):
     n = len(G)
@@ -74,3 +73,4 @@ def shortest_path(G, s, v, parents):
     else:
         shortest_path(G, s, parents[v], parents)
         print(v, end=' ')
+
