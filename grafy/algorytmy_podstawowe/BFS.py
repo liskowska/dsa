@@ -55,7 +55,7 @@ def BFS_matrix(s, G):
 
     while Q:
         u = Q.popleft()
-        for v in range(n):  # poprawka tutaj
+        for v in range(n):
             if G[u][v] != 0 and not visited[v]:
                 visited[v] = True
                 parent[v] = u
