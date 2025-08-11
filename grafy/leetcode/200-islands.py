@@ -27,9 +27,9 @@ class Solution:
                 for dr, dc in directions:
 
                     if ((cr + dr) in range(rows) and
-                            (cc + dc) in range(columns) and
-                            grid[cr + dr][cc + dc] == "1" and
-                            not visited[cr + dr][cc + dc]):
+                    (cc + dc) in range(columns) and
+                    grid[cr + dr][cc + dc] == "1" and
+                    not visited[cr + dr][cc + dc]):
                         Q.append((cr + dr, cc + dc))
                         visited[cr + dr][cc + dc] = True
             return
