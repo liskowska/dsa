@@ -11,7 +11,14 @@ Return an edge that can be removed so that the resulting graph is a tree of n no
 If there are multiple answers, return the answer that occurs last in the input.
 """
 
-#beats 100% on leetcode!!! B) :fire::fire:
+# beats 100% on leetcode!!! B) :fire::fire:
+
+"""
+Znajduje cykl za pomocą struktury find-union. Moje find-union zbudowane jest na jednej tablicy parent, gdzie:
+- parent[v] = u, u>0 ==> u jest rodzicem v
+- parent[v] = x, x<0 ==> v jest "rootem", a -x jest rangą, czyli liczbą wierzchołków (łącznie z v), które podlegają pod
+  root v
+"""
 
 def findRedundantConnection(edges):
     n = len(edges)
