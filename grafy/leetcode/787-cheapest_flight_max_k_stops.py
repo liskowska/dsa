@@ -14,7 +14,7 @@ def dijkstra_list_status(G, s, t, k): # k - maximum stops that can be made
     d = [[float('inf')]*(k+2) for _ in range(n)]
     parent = [None for _ in range(n)]
     #visited = [False for _ in range(n)]
-    stops = [float('inf') for _ in range(n)]
+    #stops = [float('inf') for _ in range(n)]
 
     queue = PriorityQueue()
 
@@ -24,8 +24,10 @@ def dijkstra_list_status(G, s, t, k): # k - maximum stops that can be made
     while not queue.empty():
         dist, v, st = queue.get()
         if v == t: return dist
+
         if st == k + 1 : continue
         if dist > d[v][st]: continue
+
         for u, w in G[v]:
             new_dist = dist + w
             new_st = st + 1
