@@ -14,17 +14,17 @@ def dijkstra_list(G, s):
     queue = PriorityQueue()
 
     d[s] = 0
-    queue.put((s, d[s]))
+    queue.put((d[s], s))
 
     while not queue.empty():
-        v, _d = queue.get()
+        _d, v = queue.get()
         if not visited[v]:
             visited[v] = True
             for u, w in G[v]:
                 if d[v] + w < d[u]: #relaksacja
                     d[u] = d[v] + w
                     parent[u] = v
-                    queue.put((u, d[u]))
+                    queue.put((d[u], u))
     return d, parent
 
 def relax(distance, vertex, neighbour, weight):

@@ -1,25 +1,22 @@
-from copy import deepcopy
-
 from egz1Atesty import runtests
 
-def create_new_graph(G, V, r, t):
-    base_graph = deepcopy(G)
+def build_layered_graph(G, V, r):
     n = len(G)
-    G.extend(deepcopy(base_graph))
-    offset = 0
+    new_G = [[] for _ in range(2*n)]
 
-    for gold in V:
-        offset += 1
-        G[offset].append((offset*n+offset, gold))
-        G[offset*n + t].append((t, 0))
+    for v in range(n):
+        # 1. zwykłe krawędzie (warstwa 0)
+        for u, w in G[v]:
+            new_G[v].append((u, w))           # (v,0) -> (u,0)
+            new_G[n+v].append((n+u, 2*w + r)) # (v,1) -> (u,1)
 
-        for v in range(n):
-            for u, w in base_graph[v]:
-                G[offset*n + v].append((offset*n + u , w*2 + r))
-    return G
+        # 2. opcja rabunku
+        new_G[v].append((n+v, -V[v]))         # (v,0) -> (v,1)
+
+    #print(new_G)
+    return new_G
 
 from queue import PriorityQueue
-
 def dijkstra_list(G, s):
     n = len(G)
 
@@ -43,9 +40,10 @@ def dijkstra_list(G, s):
     return d
 
 def gold(G,V,s,t,r):
-    new_graph = create_new_graph(G, V, r, t)
+    new_graph = build_layered_graph(G, V, r)
+    n = len(G)
     distances = dijkstra_list(new_graph, s)
-    return distances[t]
+    return min(distances[t], distances[t+n])
 
 # zmien all_tests na True zeby uruchomic wszystkie testy
 runtests( gold, all_tests = False )
