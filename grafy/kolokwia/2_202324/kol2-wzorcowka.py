@@ -30,7 +30,6 @@ def BFS_status(G, s, status):
 
     while Q:
         v = Q.popleft()
-        for u in G[v]:
 
 
     return
