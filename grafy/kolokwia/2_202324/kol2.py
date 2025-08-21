@@ -61,7 +61,6 @@ def warrior(G, s, t):
 
     n = len(graph)
     d = dijkstra_status(graph, s)
-    print(d)
     mini = float("inf")
     for i in d[t]:
         mini = min(mini, i)
