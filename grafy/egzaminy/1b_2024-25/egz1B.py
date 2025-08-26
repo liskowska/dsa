@@ -9,64 +9,42 @@ def to_adj(V, E):
         graph[v].append(u)
     return graph
 
-def DFS_list(G):
-    time = 0
+from collections import deque
+def BFS_list(G, s):
     n = len(G)
+    Q = deque()
+
     visited = [False for _ in range(n)]
-    parent = [None for _ in range(n)]
 
-    def DFS_visit(G, v):
-        nonlocal time
-        visited[v] = True
-        time += 1
-        for u in G[v]:
-            if not visited[u]:
-                parent[u] = v
-                DFS_visit(G, u)
-        time += 1
+    visited[s] = True
+    Q.append(s)
 
-    for v in range(n):
-        if not visited[v]: DFS_visit(G, v)
-
+    while Q:
+        u = Q.popleft()
+        for v in G[u]:
+            if not visited[v]:
+                visited[v] = True
+                Q.append(v)
     return visited
-
-def DFS_toposort(G):
-    time = 0
-    n = len(G)
-    visited = [False for _ in range(n)]
-    parent = [None for _ in range(n)]
-    toposort = []
-
-    def DFS_visit(G, v):
-        nonlocal time
-        visited[v] = True
-        time += 1
-        for u in G[v]:
-            if not visited[u]:
-                parent[u] = v
-                DFS_visit(G, u)
-        time += 1
-        toposort.append(v)
-
-    for v in range(n):
-        if not visited[v]: DFS_visit(G, v)
-
-    return toposort
 
 def critical(V, E):
     graph = to_adj(V, E)
     graph_modified = deepcopy(graph)
-    visited_og = DFS_list(graph)
-    visited_edge = None
 
+    visited_og = None
+    visited_new = None
     critical_cnt = 0
 
     for v in range(V):
         for u in graph[v]:
             graph_modified[v].remove(u)
-            visited_edge = DFS_list(graph_modified)
-            if visited_og != visited_edge: critical_cnt += 1
+
+            visited_og = BFS_list(graph, v)
+            visited_new = BFS_list(graph_modified, v)
+
+            if visited_og != visited_new: critical_cnt += 1
             graph_modified = deepcopy(graph)
+
     return critical_cnt
 
         
@@ -76,4 +54,4 @@ runtests(critical, all_tests = False)
 V = 4
 E = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
 
-print(critical(V, E))
+print(critical(5, [(1, 2), (3, 1), (4, 2), (3, 2), (1, 0), (3, 0)])) #4

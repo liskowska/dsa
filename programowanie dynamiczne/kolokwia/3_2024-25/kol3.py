@@ -13,9 +13,8 @@ def parkiet(B, C, s):
     elif m == 1: return parkiet(B[0:n][1:], C[0:n][1:], s)
     elif C[0][0] - C[0][1] <= s and C[0][1] <= s:
          return
-    elif(C[1][0] <= s and C[0][0] - C[1][0] <= s)):
-        return 1
-    return -1
+    elif C[1][0] <= s and C[0][0] - C[1][0] <= s: return 1
+
 
 #runtests(parkiet, all_tests = False)
 
