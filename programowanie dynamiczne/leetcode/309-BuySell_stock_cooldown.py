@@ -10,20 +10,29 @@ Note: You may not engage in multiple transactions simultaneously
 """
 
 def maxProfit(prices):
+    dp = {} # key = (i, buing)  val = max_profit
+    def rec(i, buying):
+        if i >= len(prices): return 0
+        if (i, buying) in dp: return dp[(i, buying)]
 
-    def rec(i, state):
-        if i == len(prices): return 0
+        if buying:
+            buy = rec(i+1, not buying) - prices[i]
+            cooldown = rec(i+1, buying)
+            dp[(i, buying)] = max(buy, cooldown)
 
-        if state == "buy":   # mam akcję
-            return max(rec(i+1, "cooldown"), rec(i+1, "sell") + prices[i])
-        elif state == "sell": # właśnie sprzedałem → cooldown
-            return rec(i+1, "cooldown")
-        elif state == "cooldown": # mogę kupić lub odpocząć
-            return max(rec(i+1, "cooldown"), rec(i+1, "buy") - prices[i])
-    return rec(0, "cooldown")
+        else: # not buying ==> selling
+            sell = rec(i+2, not buying) + prices[i]
+            cooldown = rec(i+1, buying)
+            dp[(i, buying)] = max(sell, cooldown)
+
+        return dp[(i, buying)]
+    return rec(0, True)
 
 prices1= [1,2,3,0,2]
 print(maxProfit(prices1))
 
 prices2 = [4,3,2,10,11,0,11]
 print(maxProfit(prices2))
+
+prices3 = [1, 2, 4]
+print(maxProfit(prices3))
