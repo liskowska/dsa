@@ -3,8 +3,6 @@
 
 import sys
 
-sys.setrecursionlimit(10000)
-
 TIMER = False
 RERAISE = True
 PRINT_STATUS = False
@@ -120,7 +118,7 @@ def internal_runtests( copyarg, printarg, printhint, printsol, check, generate_t
       if TIMER:
         alarm(0)
       printsol( sol )
-      res = check( *arg2, hint, sol )
+      res = check( hint, sol )
       if ACC_TIME > 0 and float(time_e-time_s) > ACC_TIME:
         timeout += 1
         status_line += ' T'
