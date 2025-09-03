@@ -4,7 +4,6 @@ coś nie działa
 nwm
 """
 from queue import PriorityQueue
-
 from egz1Atesty import runtests
 
 def battle(P,K,R):
@@ -38,19 +37,10 @@ def battle(P,K,R):
         if Q.empty(): continue
         x, y = Q.get()
         x = -x
-        if y > P[i]: cnt += 1
+        if y > P[i]:
+            cnt += 1
 
     return cnt
 
 # zmien all_tests na True zeby uruchomic wszystkie testy
 runtests( battle, all_tests=True )
-
-# Test 0
-# n             :	 3
-# m             :	 6
-# Procesory (P) :	 [14, 16, 0, 6, 10, 8]
-# Katapulty (K) :	 [2, 12, 4]
-# Zasięgi   (R) :	 [8, 5, 3]
-# Prawidlowy wynik:  3
-
-print(battle([14, 16, 0, 6, 10, 8], [2, 12, 4], [8, 5, 3]))
