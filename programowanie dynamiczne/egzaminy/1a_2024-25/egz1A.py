@@ -34,13 +34,27 @@ def battle(P,K,R):
 
         # Jeśli w kolejce została chociaż jedna katapulta, to powinna zostać użyta do ataku
         # kolejnego procesora (jeśli jest to w jej zasięgu)
-        if Q.empty(): continue
-        x, y = Q.get()
-        x = -x
-        if y > P[i]:
-            cnt += 1
+        # if Q.empty(): continue
+        # x, y = Q.get()
+        # x = -x
+        # if y > P[i]:
+        #     cnt += 1
+
+        # if Q.empty(): continue
+        while not Q.empty():
+            x, y = Q.get()
+            x = -x
+            if y > P[i]:
+                cnt += 1
+                break
+
 
     return cnt
 
 # zmien all_tests na True zeby uruchomic wszystkie testy
 runtests( battle, all_tests=True )
+
+# P = [14, 16, 0, 6, 10, 8]
+# K = [2, 12, 4]
+# R = [8, 5, 3] #3
+# print(battle(P, K, R))
