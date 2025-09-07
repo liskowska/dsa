@@ -11,6 +11,7 @@ the expression "+2-1". Return the number of different expressions that you can b
 Uwaga: trzeba wykorzystać WSZYSTKIE liczby z tablicy
 """
 
+# recursion O(2^n)
 def findTargetSumWays(nums, target):
     if target < 0: target = -target
     n = len(nums)
@@ -23,8 +24,8 @@ def findTargetSumWays(nums, target):
 
     def rec(i, cur_sum):
         nonlocal cnt
-        #if (i, cur_sum) in mem: return
-        mem[(i, cur_sum)] = True
+        if (i, cur_sum) in mem: return
+        #mem[(i, cur_sum)] = True
         if i == n - 1 and cur_sum == target:
             cnt += 1
             return
@@ -36,6 +37,33 @@ def findTargetSumWays(nums, target):
     rec(-1, 0)
     return cnt
 
+# recursion with memoisation O(n * sum(nums))
+def findTargetSumWays2(nums, target):
+    if target < 0: target = - target
+    n = len(nums)
+    mem = {}
+    def rec(i, cur_sum):
+        if (i, cur_sum) in mem: return mem[(i, cur_sum)]
+        if i == n-1 and cur_sum == target:
+            mem[(i, cur_sum)] = 1
+            return 1
+        elif i == n-1:
+            mem[(i, cur_sum)] = 0
+            return 0
+
+        mem[(i, cur_sum)] = (
+        rec(i+1, cur_sum + nums[i]) +
+        rec(i+1, cur_sum - nums[i]))
+
+        return mem[(i, cur_sum)]
+
+    return rec(-1, 0)
+
+def findTargetSumWays3(nums, target):
+    return
+
 nums = [1,1,1,1,1]
 target = 3
 print(findTargetSumWays(nums, target))
+print(findTargetSumWays2(nums, target))
+print(findTargetSumWays3(nums, target))
