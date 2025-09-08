@@ -4,7 +4,7 @@ f(i, b) - minimalny koszt znalezienia się na planecie i mając b ton paliwa
 """
 from egz1btesty import runtests
 
-def planets2(D, C, T, E):
+def planets(D, C, T, E):
     n = len(D)
     INF = float("inf")
     dp = [[INF]*(E+1) for _ in range(n)]
@@ -30,4 +30,4 @@ def planets2(D, C, T, E):
     return min(dp[n-1])
 
 # zmien all_tests na True zeby uruchomic wszystkie testy
-runtests( planets2, all_tests = True )
+runtests( planets, all_tests = True )
